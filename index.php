@@ -1,6 +1,9 @@
 <?php
+require 'class/Message.php';
+require 'class/GuestBook.php';
 $error = null;
 $success = null;
+
 require 'elements/header.php';
 ?>
 
