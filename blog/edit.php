@@ -1,10 +1,10 @@
-<?php 
+<?php
 $pdo = new PDO('sqlite:../data.db', null, null, [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
 ]);
 $error = null;
-$success = null; 
+$success = null;
 try {
     if (isset($_POST['name'], $_POST['content'])) {
         $query = $pdo->prepare('UPDATE posts SET name = :name, content = :content WHERE id = :id');
@@ -31,18 +31,18 @@ require '../elements/header.php'; ?>
         <a href="/blog">Revenir au listing</a>
     </p>
 
-    <?php if ($success): ?>
+    <?php if ($success) : ?>
         <div class="alert alert-success"><?= $success ?></div>
     <?php endif ?>
-    <?php if ($error): ?>
+    <?php if ($error) : ?>
         <div class="alert alert-danger"><?= $error ?></div>
-    <?php else: ?>
+    <?php else : ?>
         <form action="" method="post">
             <div class="form-group">
                 <input type="text" class="form-control" name="name" value="<?= htmlentities($post->name) ?>">
             </div>
             <div class="form-group">
-                <textarea class="form-control" name="content"><?= htmlentities($post->content) ?></textarea>
+                <textarea class="form-control" name="content"><?= html_entity_decode($post->content) ?></textarea>
             </div>
             <button class="btn btn-primary">Sauvegarder</button>
         </form>

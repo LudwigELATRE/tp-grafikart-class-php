@@ -1,5 +1,8 @@
-<?php 
-require_once '../class/Post.php';
+<?php
+require_once '../vendor/autoload.php';
+
+use App\Post;
+
 $pdo = new PDO('sqlite:../data.db', null, null, [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
@@ -17,34 +20,35 @@ try {
         exit();
     }
     $query = $pdo->query('SELECT * FROM posts');
-    $posts = $query->fetchAll(PDO::FETCH_CLASS, 'Post');
+    $posts = $query->fetchAll(PDO::FETCH_CLASS, Post::class);
 } catch (PDOException $e) {
     $error = $e->getMessage();
 }
 require '../elements/header.php'; ?>
 
 <div class="container">
-<?php if ($error): ?>
-    <div class="alert alert-danger"><?= $error ?></div>
-<?php else: ?>
-        <?php foreach($posts as $post): ?>
-        <h2><a href="/blog/edit.php?id=<?= $post->id ?>"><?= htmlentities($post->name) ?></a></h2>
-        <p class="small text-muted">Ecrit le <?= $post->created_at->format('d/m/Y à H:i') ?></p>
-        <p>
-            <?= nl2br(htmlentities($post->getExcerpt())) ?>
-        </p>
+    <?php if ($error) : ?>
+        <div class="alert alert-danger"><?= $error ?></div>
+    <?php else : ?>
+        <?php foreach ($posts as $post) : ?>
+            <h2><a href="/blog/edit.php?id=<?= $post->id ?>"><?= htmlentities($post->name) ?></a></h2>
+            <p class="small text-muted">Ecrit le <?= $post->created_at->format('d/m/Y à H:i') ?></p>
+            <p>
+                <?= nl2br(htmlentities($post->getExcerpt())) ?>
+            </p>
         <?php endforeach ?>
-    
-    <form action="" method="post">
-        <div class="form-group">
-            <input type="text" class="form-control" name="name" value="">
-        </div>
-        <div class="form-group">
-            <textarea class="form-control" name="content"></textarea>
-        </div>
-        <button class="btn btn-primary">Sauvegarder</button>
-    </form>
-<?php endif ?>
+
+        <form action="" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" name="name" value="">
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" name="content"></textarea>
+            </div>
+            <button class="btn btn-primary">Sauvegarder</button>
+        </form>
+    <?php endif ?>
 </div>
 
 <?php require '../elements/footer.php'; ?>
+use App\Post;

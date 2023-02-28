@@ -6,7 +6,17 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit5eeb128605e0c88f2831f944e5f037bc
 {
+    public static $files = array (
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Component\\VarDumper\\' => 28,
+        ),
         'A' => 
         array (
             'App\\' => 4,
@@ -14,9 +24,27 @@ class ComposerStaticInit5eeb128605e0c88f2831f944e5f037bc
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Component\\VarDumper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/var-dumper',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/class',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'P' => 
+        array (
+            'Parsedown' => 
+            array (
+                0 => __DIR__ . '/..' . '/erusev/parsedown',
+            ),
         ),
     );
 
@@ -29,6 +57,7 @@ class ComposerStaticInit5eeb128605e0c88f2831f944e5f037bc
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit5eeb128605e0c88f2831f944e5f037bc::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit5eeb128605e0c88f2831f944e5f037bc::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit5eeb128605e0c88f2831f944e5f037bc::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit5eeb128605e0c88f2831f944e5f037bc::$classMap;
 
         }, null, ClassLoader::class);
