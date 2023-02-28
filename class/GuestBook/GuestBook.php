@@ -1,7 +1,10 @@
 <?php
-require_once 'Message.php';
 
 namespace App\GuestBook;
+
+
+require_once 'Message.php';
+
 
 class GuestBook
 {

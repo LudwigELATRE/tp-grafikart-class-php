@@ -3,6 +3,6 @@
 namespace App\Exceptions;
 
 
-class HTTPException extends Exception
+class HTTPException extends \Exception
 {
 }

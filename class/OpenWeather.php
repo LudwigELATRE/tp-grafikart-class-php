@@ -1,9 +1,14 @@
 <?php
+
+namespace App;
+
+use App\Exceptions\CurlException;
+use App\Exceptions\HTTPException;
+
 require_once 'CurlException.php';
 require_once 'HTTPException.php';
 require_once 'UnauthorizedHTTPException.php';
 
-namespace App;
 
 /**
  * Gère l'API d'OpenWeather
@@ -33,7 +38,7 @@ class OpenWeather
         return [
             'temp' => $data['main']['temp'],
             'description' => $data['weather'][0]['description'],
-            'date' => new DateTime()
+            'date' => new \DateTime()
         ];
     }
 
@@ -51,7 +56,7 @@ class OpenWeather
             $results[] = [
                 'temp' => $day['temp']['day'],
                 'description' => $day['weather'][0]['description'],
-                'date' => new DateTime('@' . $day['dt'])
+                'date' => new \DateTime('@' . $day['dt'])
             ];
         }
         return $results;
@@ -85,7 +90,7 @@ class OpenWeather
             curl_close($curl);
             if ($code === 401) {
                 $data = json_decode($data, true);
-                throw new UnauthorizedHTTPException($data['message'], 401);
+                throw new \UnauthorizedHTTPException($data['message'], 401);
             }
             throw new HTTPException($data, $code);
         }
