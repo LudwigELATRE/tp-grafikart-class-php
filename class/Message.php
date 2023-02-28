@@ -1,7 +1,7 @@
 <?php
-class Message
-{
-    const LIMIT_USER = 3;
+class Message {
+
+    const LIMIT_USERNAME = 3;
     const LIMIT_MESSAGE = 10;
     private $username;
     private $message;
@@ -28,8 +28,8 @@ class Message
     public function getErrors(): array
     {
         $errors = [];
-        if (strlen($this->username) < self::LIMIT_USER) {
-            $errors['username'] = 'Votre speudo est trop court';
+        if (strlen($this->username) < self::LIMIT_USERNAME) {
+            $errors['username'] = 'Votre pseudo est trop court';
         }
         if (strlen($this->message) < self::LIMIT_MESSAGE) {
             $errors['message'] = 'Votre message est trop court';
@@ -39,14 +39,13 @@ class Message
 
     public function toHTML(): string
     {
-        $username = htmlspecialchars($this->username);
-        $message = nl2br(htmlspecialchars($this->message));
-        $this->date->setTimezone(new DateTimeZone("Europe/Paris"));
-        $date = $this->date->format("d/m/Y à H:i");
-
+        $username = htmlentities($this->username);
+        $this->date->setTimezone(new DateTimeZone('Europe/Paris'));
+        $date = $this->date->format('d/m/Y à H:i');
+        $message = nl2br(htmlentities($this->message));
         return <<<HTML
         <p>
-            <strong>{$username}</strong> <em>le {$date} </em><br>
+            <strong>{$username}</strong> <em>le {$date}</em><br>
             {$message}
         </p>
 HTML;
@@ -57,7 +56,8 @@ HTML;
         return json_encode([
             'username' => $this->username,
             'message' => $this->message,
-            'date' => $this->date->getTimestamp(),
+            'date' => $this->date->getTimestamp()
         ]);
     }
+
 }

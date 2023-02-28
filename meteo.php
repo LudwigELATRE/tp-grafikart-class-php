@@ -1,8 +1,27 @@
 <?php
-$curl = curl_init("https://api.meteo-concept.com/api/ephemeride/0?token=d9bc4e58c57654595af8223cfd17b8e822e2de48779cc3253a61d12f28c0dbb0");
-$data = curl_exec($curl);
-if ($data === false) {
-    var_dump(curl_error($curl));
-} else {
+require_once 'class/OpenWeather.php';
+$weather = new OpenWeather('94c6cf0868fa5cb930a5e2d71baf0dbf');
+$error = null;
+try {
+    $forecast = $weather->getForecast('Montpellier,fr');
+    $today = $weather->getToday('Montpellier,fr');
+} catch (Exception | Error $e) {
+    $error = $e->getMessage();
 }
-curl_close($curl);
+require 'elements/header.php';
+?>
+
+<?php if ($error): ?>
+<div class="alert alert-danger"><?= $error ?></div>
+<?php else: ?>
+<div class="container">
+    <ul>
+        <li>En ce moment <?= $today['description'] ?> <?= $today['temp'] ?>°C</li>
+        <?php foreach($forecast as $day): ?>
+        <li><?= $day['date']->format('d/m/Y') ?> <?= $day['description'] ?> <?= $day['temp'] ?>°C</li>
+        <?php endforeach ?>
+    </ul>
+</div>
+<?php endif ?>
+
+<?php require 'elements/footer.php';
