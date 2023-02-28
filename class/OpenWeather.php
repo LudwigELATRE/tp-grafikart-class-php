@@ -3,12 +3,15 @@ require_once 'CurlException.php';
 require_once 'HTTPException.php';
 require_once 'UnauthorizedHTTPException.php';
 
+namespace App;
+
 /**
  * Gère l'API d'OpenWeather
  *
  * @author Jonathan Boyer <john@doe.fr>
-*/
-class OpenWeather {
+ */
+class OpenWeather
+{
 
     private $apiKey;
 
@@ -44,7 +47,7 @@ class OpenWeather {
     public function getForecast(string $city): ?array
     {
         $data = $this->callAPI("forecast/daily?q={$city}");
-        foreach($data['list'] as $day) {
+        foreach ($data['list'] as $day) {
             $results[] = [
                 'temp' => $day['temp']['day'],
                 'description' => $day['weather'][0]['description'],
@@ -89,5 +92,4 @@ class OpenWeather {
         curl_close($curl);
         return json_decode($data, true);
     }
-
 }
