@@ -1,0 +1,20 @@
+{
+    "name": "ludwigelatre/tp-grafikart-class-php",
+    "autoload": {
+        "psr-4": {
+            "Ludwigelatre\\TpGrafikartClassPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "LudwigELATRE",
+            "email": "73239553+LudwigELATRE@users.noreply.github.com"
+        }
+    ],
+    "autoload":{
+        "psr-4": {
+            "App\\": "class/"
+        }
+    },
+    "require": {}
+}

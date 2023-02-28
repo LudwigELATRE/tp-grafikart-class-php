@@ -2,10 +2,6 @@
 
 namespace App\GuestBook;
 
-
-require_once 'Message.php';
-
-
 class GuestBook
 {
 
@@ -23,7 +19,7 @@ class GuestBook
         $this->file = $file;
     }
 
-    public function addMessage(\Message $message): void
+    public function addMessage(Message $message): void
     {
         file_put_contents($this->file, $message->toJSON() . PHP_EOL, FILE_APPEND);
     }
@@ -34,7 +30,7 @@ class GuestBook
         $lines = explode(PHP_EOL, $content);
         $messages = [];
         foreach ($lines as $line) {
-            $messages[] = \Message::fromJSON($line);
+            $messages[] = Message::fromJSON($line);
         }
         return array_reverse($messages);
     }
